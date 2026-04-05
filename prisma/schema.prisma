@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== AUTH & MULTI-TENANCY ====================
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("staff") // superadmin, owner, manager, staff
+  storeId   Int?
+  store     Store?   @relation(fields: [storeId], references: [id])
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Store {
+  id           Int            @id @default(autoincrement())
+  name         String
+  address      String         @default("")
+  phone        String         @default("")
+  email        String         @default("")
+  logo         String         @default("")
+  active       Boolean        @default(true)
+  users        User[]
+  subscription Subscription?
+  categories   Category[]
+  products     Product[]
+  ingredients  Ingredient[]
+  orders       Order[]
+  stockLogs    StockLog[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Subscription {
+  id        Int      @id @default(autoincrement())
+  storeId   Int      @unique
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  plan      String   @default("monthly") // monthly, yearly, trial
+  status    String   @default("active")  // active, expired, suspended
+  startDate DateTime @default(now())
+  endDate   DateTime
+  amount    Float    @default(0)
+  notes     String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==================== STORE DATA ====================
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  icon      String    @default("☕")
+  storeId   Int
+  store     Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  products  Product[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id          Int              @id @default(autoincrement())
+  name        String
+  description String           @default("")
+  image       String           @default("")
+  categoryId  Int
+  category    Category         @relation(fields: [categoryId], references: [id])
+  storeId     Int
+  store       Store            @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  variants    ProductVariant[]
+  active      Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model ProductVariant {
+  id         Int          @id @default(autoincrement())
+  productId  Int
+  product    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  size       String
+  price      Float
+  recipe     RecipeItem[]
+  orderItems OrderItem[]
+  createdAt  DateTime     @default(now())
+
+  @@unique([productId, size])
+}
+
+model Ingredient {
+  id           Int        @id @default(autoincrement())
+  name         String
+  unit         String
+  currentStock Float      @default(0)
+  minStock     Float      @default(0)
+  costPerUnit  Float      @default(0)
+  storeId      Int
+  store        Store      @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  recipes      RecipeItem[]
+  stockLogs    StockLog[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([name, storeId])
+}
+
+model RecipeItem {
+  id               Int            @id @default(autoincrement())
+  productVariantId Int
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+  ingredientId     Int
+  ingredient       Ingredient     @relation(fields: [ingredientId], references: [id])
+  quantity         Float
+
+  @@unique([productVariantId, ingredientId])
+}
+
+model Order {
+  id            Int         @id @default(autoincrement())
+  orderNumber   String      @unique
+  customerName  String      @default("")
+  storeId       Int
+  store         Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  items         OrderItem[]
+  subtotal      Float
+  tax           Float       @default(0)
+  total         Float
+  paymentMethod String      @default("cash")
+  status        String      @default("completed")
+  createdAt     DateTime    @default(now())
+}
+
+model OrderItem {
+  id               Int            @id @default(autoincrement())
+  orderId          Int
+  order            Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productVariantId Int
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+  productName      String
+  size             String
+  price            Float
+  quantity         Int
+  total            Float
+}
+
+model StockLog {
+  id           Int        @id @default(autoincrement())
+  ingredientId Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  storeId      Int
+  store        Store      @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  type         String
+  quantity     Float
+  reference    String     @default("")
+  createdAt    DateTime   @default(now())
+}
