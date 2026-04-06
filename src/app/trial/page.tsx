@@ -99,24 +99,6 @@ export default function TrialPage() {
               </div>
             </div>
 
-            {/* Pricing after trial */}
-            <div className="bg-white rounded-2xl p-6 shadow-md">
-              <h3 className="font-bold text-gray-800 mb-3">After your trial</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { label: "1 Month", price: "₱200" },
-                  { label: "3 Months", price: "₱500" },
-                  { label: "6 Months", price: "₱900" },
-                  { label: "1 Year", price: "₱1,500" },
-                ].map((p) => (
-                  <div key={p.label} className="bg-gray-50 rounded-lg p-3 text-center">
-                    <p className="text-xs text-gray-500">{p.label}</p>
-                    <p className="font-bold text-amber-700">{p.price}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-gray-400 mt-2 text-center">Choose a plan when your trial ends</p>
-            </div>
           </div>
 
           {/* Right: Form */}
