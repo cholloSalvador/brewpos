@@ -242,7 +242,7 @@ export default function MenuPage() {
   const emojiOptions = ["☕", "🧊", "🍵", "🥤", "🍞", "🥪", "🍕", "🍔", "🥗", "🍰", "🧁", "🍩", "🥐", "🍳", "🍜", "🍽️", "🥤", "🍦", "🧇", "🥞"];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Menu & Recipes</h1>
@@ -357,7 +357,7 @@ export default function MenuPage() {
                     <h4 className="font-semibold text-amber-800">Recipe per Size</h4>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
                     {product.variants.map((variant) => (
                       <div key={variant.id} className="bg-white rounded-lg border p-4">
                         <div className="flex justify-between items-center mb-3">

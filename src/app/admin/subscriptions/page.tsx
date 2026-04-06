@@ -29,14 +29,14 @@ export default function SubscriptionsPage() {
   const now = Date.now();
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-800">Subscription Management</h1>
         <p className="text-sm text-gray-500">Control store access and billing periods</p>
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
         <div className="bg-white rounded-xl border p-4 text-center">
           <p className="text-sm text-gray-500">Active</p>
           <p className="text-2xl font-bold text-green-600">{subs.filter((s) => s.status === "active" && new Date(s.endDate).getTime() > now).length}</p>
@@ -53,7 +53,7 @@ export default function SubscriptionsPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border overflow-hidden">
+      <div className="bg-white rounded-xl border overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-50 border-b">
             <tr>

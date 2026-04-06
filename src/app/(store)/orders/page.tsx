@@ -45,14 +45,14 @@ export default function OrdersPage() {
   const todayRevenue = todayOrders.reduce((sum, o) => sum + o.total, 0);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-800">Order History</h1>
         <p className="text-sm text-gray-500">View all completed orders</p>
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
         <div className="bg-white rounded-xl border p-4">
           <p className="text-sm text-gray-500">Today&apos;s Orders</p>
           <p className="text-2xl font-bold mt-1">{todayOrders.length}</p>
@@ -67,9 +67,9 @@ export default function OrdersPage() {
         </div>
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
         {/* Orders List */}
-        <div className="flex-1 bg-white rounded-xl border overflow-hidden">
+        <div className="flex-1 bg-white rounded-xl border overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b">
               <tr>

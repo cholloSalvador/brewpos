@@ -171,7 +171,7 @@ export default function ReportsPage() {
   const periodLabel = period === "daily" ? "Last 30 Days" : period === "weekly" ? "Last 12 Weeks" : "Last 12 Months";
 
   return (
-    <div className="p-6 space-y-6 max-w-[1400px]">
+    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6 max-w-[1400px]">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Reports & Analytics</h1>
@@ -197,7 +197,7 @@ export default function ReportsPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-4">
         <div className="bg-white rounded-xl border p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs text-gray-500 font-medium uppercase">Total Revenue</span>
@@ -262,7 +262,7 @@ export default function ReportsPage() {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Top Products */}
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center gap-2 mb-4">
@@ -326,7 +326,7 @@ export default function ReportsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Sales by Size */}
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center gap-2 mb-4">

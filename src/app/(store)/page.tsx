@@ -83,6 +83,7 @@ export default function POSPage() {
   const [customerName, setCustomerName] = useState("");
   const [showPayment, setShowPayment] = useState<string | null>(null);
   const [cashTendered, setCashTendered] = useState("");
+  const [showMobileCart, setShowMobileCart] = useState(false);
 
   const fetchData = useCallback(async () => {
     const [catRes, prodRes] = await Promise.all([
@@ -197,18 +198,20 @@ export default function POSPage() {
 
   const quickCashAmounts = [50, 100, 200, 500, 1000];
 
+  const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
+
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col lg:flex-row h-screen">
       {/* Left: Menu */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="bg-white border-b px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
+        <div className="bg-white border-b px-4 lg:px-6 py-3 lg:py-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="hidden lg:block">
               <h1 className="text-2xl font-bold text-gray-800">Point of Sale</h1>
               <p className="text-sm text-gray-500">Select items to add to the order</p>
             </div>
             {/* Search */}
-            <div className="relative w-72">
+            <div className="relative flex-1 lg:flex-none lg:w-72">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
@@ -230,7 +233,7 @@ export default function POSPage() {
         </div>
 
         {/* Categories */}
-        <div className="bg-white border-b px-6 py-3 flex gap-2 overflow-x-auto">
+        <div className="bg-white border-b px-3 lg:px-6 py-2 lg:py-3 flex gap-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setSelectedCategory(null)}
             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
@@ -257,22 +260,22 @@ export default function POSPage() {
         </div>
 
         {/* Product Grid */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-3 lg:p-6 pb-20 lg:pb-6">
           {filteredProducts.length === 0 ? (
             <div className="text-center py-20 text-gray-400">
               <Search className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No products found for &quot;{searchQuery}&quot;</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-4">
               {filteredProducts.map((product) => (
                 <button
                   key={product.id}
                   onClick={() => setSelectedProduct(product)}
-                  className="bg-white rounded-xl border border-gray-200 p-4 text-left hover:shadow-lg hover:border-amber-300 transition-all group"
+                  className="bg-white rounded-xl border border-gray-200 p-3 lg:p-4 text-left hover:shadow-lg hover:border-amber-300 transition-all group"
                 >
-                  <div className="w-full h-24 bg-amber-50 rounded-lg flex items-center justify-center mb-3 group-hover:bg-amber-100 transition-colors">
-                    <span className="text-3xl">{product.category.icon}</span>
+                  <div className="w-full h-16 lg:h-24 bg-amber-50 rounded-lg flex items-center justify-center mb-2 lg:mb-3 group-hover:bg-amber-100 transition-colors">
+                    <span className="text-2xl lg:text-3xl">{product.category.icon}</span>
                   </div>
                   <h3 className="font-bold text-gray-800 text-base">{product.name}</h3>
                   <p className="text-xs text-gray-500 mt-1">{product.description}</p>
@@ -293,15 +296,35 @@ export default function POSPage() {
         </div>
       </div>
 
+      {/* Mobile cart button */}
+      <button
+        onClick={() => setShowMobileCart(true)}
+        className="lg:hidden fixed bottom-4 right-4 z-40 bg-amber-600 text-white px-5 py-3 rounded-full shadow-lg flex items-center gap-2 active:scale-95 transition-transform"
+      >
+        <ShoppingCart className="w-5 h-5" />
+        <span className="font-bold">Cart ({cartCount})</span>
+        {cartCount > 0 && <span className="font-bold">₱{total.toFixed(0)}</span>}
+      </button>
+
+      {/* Cart overlay for mobile */}
+      {showMobileCart && (
+        <div className="lg:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowMobileCart(false)} />
+      )}
+
       {/* Right: Cart */}
-      <div className="w-96 bg-white border-l flex flex-col">
+      <div className={`fixed lg:static inset-y-0 right-0 w-full sm:w-96 bg-white border-l flex flex-col z-50 transition-transform duration-300 ${
+        showMobileCart ? "translate-x-0" : "translate-x-full"
+      } lg:translate-x-0 lg:w-96`}>
         <div className="p-4 border-b bg-amber-50 space-y-2">
           <div className="flex items-center gap-2">
             <ShoppingCart className="w-5 h-5 text-amber-700" />
             <h2 className="font-bold text-amber-900">Current Order</h2>
             <span className="ml-auto bg-amber-600 text-white text-xs px-2 py-1 rounded-full">
-              {cart.reduce((s, i) => s + i.quantity, 0)} items
+              {cartCount} items
             </span>
+            <button onClick={() => setShowMobileCart(false)} className="lg:hidden p-1 text-amber-700 hover:text-amber-900">
+              <X className="w-5 h-5" />
+            </button>
           </div>
           <input
             type="text"

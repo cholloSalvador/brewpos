@@ -34,13 +34,13 @@ export default function AdminDashboard() {
   if (!stats) return <div className="p-6 text-gray-400">Loading...</div>;
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-800">Super Admin Dashboard</h1>
         <p className="text-sm text-gray-500">Platform overview and management</p>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center justify-between">
             <div>
@@ -91,7 +91,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center gap-2 mb-4">
             <CreditCard className="w-5 h-5 text-blue-600" />
