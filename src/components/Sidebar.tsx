@@ -38,7 +38,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-amber-900/95 backdrop-blur-xl text-white flex items-center px-4 z-50">
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-amber-900/95 backdrop-blur-xl text-white flex items-center px-4 z-50 pt-[env(safe-area-inset-top)] h-[calc(3.5rem+env(safe-area-inset-top))]">
         <button onClick={() => setOpen(true)} className="p-2 -ml-2">
           <Menu className="w-6 h-6" />
         </button>

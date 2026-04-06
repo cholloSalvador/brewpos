@@ -88,13 +88,10 @@ input:focus, select:focus, textarea:focus, button:focus-visible {
   background: rgba(217, 119, 6, 0.2);
 }
 
-/* PWA fullscreen - safe area padding for notched devices */
-@supports (padding-top: env(safe-area-inset-top)) {
+/* PWA fullscreen - safe area for bottom bar on notched devices */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
   body {
-    padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
   }
 }
 

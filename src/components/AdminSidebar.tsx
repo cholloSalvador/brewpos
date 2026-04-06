@@ -34,7 +34,7 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Mobile header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-gray-900 text-white flex items-center px-4 z-50 shadow-md">
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-gray-900 text-white flex items-center px-4 z-50 shadow-md pt-[env(safe-area-inset-top)] h-[calc(3.5rem+env(safe-area-inset-top))]">
         <button onClick={() => setOpen(true)} className="p-2 -ml-2">
           <Menu className="w-6 h-6" />
         </button>
