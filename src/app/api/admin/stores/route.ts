@@ -33,8 +33,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Owner email already exists" }, { status: 400 });
   }
 
+  // Pricing: 1mo=200, 3mo=500, 6mo=900, 12mo=1500
+  const pricing: Record<number, number> = { 1: 200, 3: 500, 6: 900, 12: 1500 };
+  const duration = months || 1;
+  const amount = pricing[duration] || duration * 200;
+
   const endDate = new Date();
-  endDate.setMonth(endDate.getMonth() + (months || 1));
+  endDate.setMonth(endDate.getMonth() + duration);
 
   const store = await prisma.store.create({
     data: {
@@ -47,7 +52,7 @@ export async function POST(req: NextRequest) {
           plan: plan || "monthly",
           status: "active",
           endDate,
-          amount: (plan === "yearly" ? 9999 : 999) * (months || 1),
+          amount,
         },
       },
       users: {

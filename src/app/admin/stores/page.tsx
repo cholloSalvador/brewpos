@@ -181,20 +181,35 @@ export default function StoresPage() {
                     <input type="password" value={form.ownerPassword} onChange={(e) => setForm({ ...form, ownerPassword: e.target.value })} className="w-full px-3 py-2 border rounded-lg text-sm" />
                   </div>
                   <hr />
-                  <p className="text-sm font-bold text-gray-700">Subscription</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Plan</label>
-                      <select value={form.plan} onChange={(e) => setForm({ ...form, plan: e.target.value })} className="w-full px-3 py-2 border rounded-lg text-sm">
-                        <option value="trial">Trial</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearly">Yearly</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Duration (months)</label>
-                      <input type="number" min="1" value={form.months} onChange={(e) => setForm({ ...form, months: e.target.value })} className="w-full px-3 py-2 border rounded-lg text-sm" />
-                    </div>
+                  <p className="text-sm font-bold text-gray-700">Subscription Plan</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { key: "1", label: "1 Month", price: "₱200", perMonth: "₱200/mo", badge: "" },
+                      { key: "3", label: "3 Months", price: "₱500", perMonth: "₱167/mo", badge: "Save ₱100" },
+                      { key: "6", label: "6 Months", price: "₱900", perMonth: "₱150/mo", badge: "Save ₱300" },
+                      { key: "12", label: "1 Year", price: "₱1,500", perMonth: "₱125/mo", badge: "Best Deal" },
+                    ].map((p) => (
+                      <button
+                        key={p.key}
+                        type="button"
+                        onClick={() => setForm({ ...form, months: p.key, plan: p.key === "12" ? "yearly" : p.key === "1" ? "monthly" : "quarterly" })}
+                        className={`relative p-3 border-2 rounded-xl text-left transition-all ${
+                          form.months === p.key ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                        }`}
+                      >
+                        {p.badge && (
+                          <span className={`absolute -top-2 right-2 text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                            p.key === "12" ? "bg-green-500 text-white" : "bg-amber-100 text-amber-700"
+                          }`}>{p.badge}</span>
+                        )}
+                        <p className="font-bold text-sm">{p.label}</p>
+                        <p className="text-lg font-bold text-blue-600">{p.price}</p>
+                        <p className="text-xs text-gray-500">{p.perMonth}</p>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-2 text-center">
+                    <p className="text-xs text-gray-500">14-day free trial included with all plans</p>
                   </div>
                 </>
               )}

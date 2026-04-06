@@ -100,10 +100,14 @@ export default function SubscriptionsPage() {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-1 justify-center">
                       {extendId === s.id ? (
-                        <div className="flex items-center gap-1">
-                          <input type="number" min="1" value={extendMonths} onChange={(e) => setExtendMonths(e.target.value)}
-                            className="w-16 px-2 py-1 border rounded text-sm text-center" />
-                          <span className="text-xs text-gray-500">mo</span>
+                        <div className="flex items-center gap-1 flex-wrap">
+                          <select value={extendMonths} onChange={(e) => setExtendMonths(e.target.value)}
+                            className="px-2 py-1 border rounded text-xs">
+                            <option value="1">1mo - ₱200</option>
+                            <option value="3">3mo - ₱500</option>
+                            <option value="6">6mo - ₱900</option>
+                            <option value="12">1yr - ₱1,500</option>
+                          </select>
                           <button onClick={() => doAction(s.id, "extend", { months: parseInt(extendMonths) })}
                             className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Extend</button>
                           <button onClick={() => setExtendId(null)}

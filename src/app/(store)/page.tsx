@@ -146,8 +146,7 @@ export default function POSPage() {
   };
 
   const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  const tax = Math.round(subtotal * 0.12 * 100) / 100;
-  const total = subtotal + tax;
+  const total = subtotal;
 
   const cashTenderedNum = parseFloat(cashTendered) || 0;
   const change = cashTenderedNum - total;
@@ -397,10 +396,6 @@ export default function POSPage() {
               <span>Subtotal</span>
               <span>₱{subtotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-gray-600">
-              <span>Tax (12%)</span>
-              <span>₱{tax.toFixed(2)}</span>
-            </div>
             <div className="flex justify-between text-lg font-bold text-gray-800 pt-2 border-t">
               <span>Total</span>
               <span>₱{total.toFixed(2)}</span>
@@ -511,9 +506,6 @@ export default function POSPage() {
               <div className="border-t mt-2 pt-2 space-y-1">
                 <div className="flex justify-between text-sm text-gray-500">
                   <span>Subtotal</span><span>₱{subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm text-gray-500">
-                  <span>Tax (12%)</span><span>₱{tax.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg">
                   <span>Total</span><span>₱{total.toFixed(2)}</span>

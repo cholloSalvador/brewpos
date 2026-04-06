@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
 
   let subtotal = 0;
   for (const item of items) subtotal += item.price * item.quantity;
-  const tax = Math.round(subtotal * 0.12 * 100) / 100;
-  const total = subtotal + tax;
+  const tax = 0;
+  const total = subtotal;
 
   const today = new Date();
   const prefix = `ORD-${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, "0")}${String(today.getDate()).padStart(2, "0")}`;
