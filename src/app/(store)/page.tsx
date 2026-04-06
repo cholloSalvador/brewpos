@@ -203,7 +203,7 @@ export default function POSPage() {
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Left: Menu */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="bg-white border-b px-4 lg:px-6 py-3 lg:py-4">
+        <div className="bg-white/70 backdrop-blur-xl border-b border-gray-200/50 px-4 lg:px-6 py-3 lg:py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="hidden lg:block">
               <h1 className="text-2xl font-bold text-gray-800">Point of Sale</h1>
@@ -232,13 +232,13 @@ export default function POSPage() {
         </div>
 
         {/* Categories */}
-        <div className="bg-white border-b px-3 lg:px-6 py-2 lg:py-3 flex gap-2 overflow-x-auto scrollbar-hide">
+        <div className="bg-white/50 backdrop-blur-sm border-b border-gray-200/50 px-3 lg:px-6 py-2 lg:py-3 flex gap-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setSelectedCategory(null)}
-            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+            className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-all ${
               selectedCategory === null
-                ? "bg-amber-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-amber-600 text-white shadow-sm"
+                : "bg-white/70 text-[#6e6e73] hover:bg-white hover:text-[#1d1d1f]"
             }`}
           >
             All
@@ -247,10 +247,10 @@ export default function POSPage() {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+              className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-all ${
                 selectedCategory === cat.id
-                  ? "bg-amber-600 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-amber-600 text-white shadow-sm"
+                  : "bg-white/70 text-[#6e6e73] hover:bg-white hover:text-[#1d1d1f]"
               }`}
             >
               {cat.icon} {cat.name}
@@ -271,9 +271,9 @@ export default function POSPage() {
                 <button
                   key={product.id}
                   onClick={() => setSelectedProduct(product)}
-                  className="bg-white rounded-xl border border-gray-200 p-3 lg:p-4 text-left hover:shadow-lg hover:border-amber-300 transition-all group"
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-[0_1px_8px_rgba(0,0,0,0.04)] p-3 lg:p-4 text-left hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-300 group"
                 >
-                  <div className="w-full h-16 lg:h-24 bg-amber-50 rounded-lg flex items-center justify-center mb-2 lg:mb-3 group-hover:bg-amber-100 transition-colors">
+                  <div className="w-full h-16 lg:h-24 bg-amber-50/60 rounded-xl flex items-center justify-center mb-2 lg:mb-3 group-hover:bg-amber-100/60 transition-colors">
                     <span className="text-2xl lg:text-3xl">{product.category.icon}</span>
                   </div>
                   <h3 className="font-bold text-gray-800 text-base">{product.name}</h3>
@@ -311,7 +311,7 @@ export default function POSPage() {
       )}
 
       {/* Right: Cart */}
-      <div className={`fixed lg:static inset-y-0 right-0 w-full sm:w-96 bg-white border-l flex flex-col z-50 transition-transform duration-300 ${
+      <div className={`fixed lg:static inset-y-0 right-0 w-full sm:w-96 bg-white/90 backdrop-blur-xl border-l border-gray-200/50 flex flex-col z-50 transition-transform duration-300 ${
         showMobileCart ? "translate-x-0" : "translate-x-full"
       } lg:translate-x-0 lg:w-96`}>
         <div className="p-4 border-b bg-amber-50 space-y-2">
@@ -425,7 +425,7 @@ export default function POSPage() {
 
       {/* Size Selection Modal */}
       {selectedProduct && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl w-[420px] max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b">
               <div className="flex justify-between items-start">
@@ -474,7 +474,7 @@ export default function POSPage() {
 
       {/* Payment Modal */}
       {showPayment && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl w-[420px] p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-gray-800">
@@ -603,7 +603,7 @@ export default function POSPage() {
 
       {/* Order Success Modal */}
       {orderResult && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl w-[400px] p-6 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-gray-800">Order Placed!</h3>

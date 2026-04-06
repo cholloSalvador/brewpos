@@ -38,7 +38,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-amber-900 text-white flex items-center px-4 z-50 shadow-md">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-amber-900/95 backdrop-blur-xl text-white flex items-center px-4 z-50">
         <button onClick={() => setOpen(true)} className="p-2 -ml-2">
           <Menu className="w-6 h-6" />
         </button>
@@ -50,21 +50,21 @@ export default function Sidebar() {
 
       {/* Overlay */}
       {open && (
-        <div className="lg:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setOpen(false)} />
+        <div className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50" onClick={() => setOpen(false)} />
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-full w-64 bg-amber-900 text-white flex flex-col z-50 transition-transform duration-300 ${
+      <aside className={`fixed left-0 top-0 h-full w-[260px] bg-amber-900/95 backdrop-blur-xl text-white flex flex-col z-50 transition-transform duration-300 ${
         open ? "translate-x-0" : "-translate-x-full"
       } lg:translate-x-0`}>
-        <div className="p-6 border-b border-amber-800 flex items-center justify-between">
+        <div className="px-5 py-6 border-b border-amber-800/50 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center">
-              <Coffee className="w-6 h-6" />
+            <div className="w-10 h-10 bg-amber-600 rounded-[12px] flex items-center justify-center shadow-sm">
+              <Coffee className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold">BrewPOS</h1>
-              <p className="text-xs text-amber-300">Coffee Shop POS</p>
+              <h1 className="text-[17px] font-semibold tracking-tight">BrewPOS</h1>
+              <p className="text-[11px] text-amber-300/80 tracking-wide">Coffee Shop POS</p>
             </div>
           </div>
           <button onClick={() => setOpen(false)} className="lg:hidden p-1 text-amber-300 hover:text-white">
@@ -72,7 +72,7 @@ export default function Sidebar() {
           </button>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -80,23 +80,23 @@ export default function Sidebar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] transition-all ${
                   isActive
-                    ? "bg-amber-700 text-white"
-                    : "text-amber-200 hover:bg-amber-800 hover:text-white"
+                    ? "bg-white/15 text-white font-semibold"
+                    : "text-amber-100/70 hover:bg-white/10 hover:text-white"
                 }`}
               >
-                <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
+                <item.icon className="w-[18px] h-[18px]" />
+                <span>{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-amber-800">
+        <div className="px-3 py-4 border-t border-amber-800/50">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-amber-300 hover:bg-amber-800 hover:text-white w-full transition-colors"
+            className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] text-amber-300/70 hover:bg-white/10 hover:text-white w-full transition-all"
           >
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Logout</span>

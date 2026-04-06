@@ -28,7 +28,6 @@ export default function LoginPage() {
         return;
       }
 
-      // Redirect based on role
       if (data.user.role === "superadmin") {
         window.location.href = "/admin";
       } else {
@@ -42,63 +41,62 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <Coffee className="w-8 h-8 text-white" />
+    <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7] px-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-10">
+          <div className="w-[72px] h-[72px] bg-amber-600 rounded-[22px] flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <Coffee className="w-9 h-9 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800">BrewPOS</h1>
-          <p className="text-gray-500 mt-1">Coffee Shop Management System</p>
+          <h1 className="text-[28px] font-semibold tracking-tight text-[#1d1d1f]">BrewPOS</h1>
+          <p className="text-[#86868b] mt-1 text-[15px]">Coffee Shop Management System</p>
         </div>
 
-        <form onSubmit={handleLogin} className="bg-white rounded-2xl shadow-xl p-8 space-y-5">
+        <form onSubmit={handleLogin} className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-[0_2px_20px_rgba(0,0,0,0.06)] border border-white/60 p-7 space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-[13px] font-medium text-[#6e6e73] mb-1.5">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-[#f5f5f7] border-0 rounded-xl text-[15px] placeholder:text-[#aeaeb2] focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:bg-white transition-colors"
               placeholder="you@example.com"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-[13px] font-medium text-[#6e6e73] mb-1.5">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-[#f5f5f7] border-0 rounded-xl text-[15px] placeholder:text-[#aeaeb2] focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:bg-white transition-colors"
               placeholder="Enter your password"
               required
             />
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-center gap-2">
+            <div className="bg-red-50/80 backdrop-blur rounded-xl p-3.5 flex items-center gap-2.5">
               <AlertCircle className="w-4 h-4 text-red-500 shrink-0" />
-              <p className="text-sm text-red-700">{error}</p>
+              <p className="text-[13px] text-red-600">{error}</p>
             </div>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-amber-600 text-white py-3 rounded-lg font-medium hover:bg-amber-700 disabled:opacity-50 transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-amber-600 text-white py-3.5 rounded-xl text-[15px] font-semibold hover:bg-amber-700 disabled:opacity-50 transition-all active:scale-[0.98]"
           >
-            <LogIn className="w-5 h-5" />
+            <LogIn className="w-[18px] h-[18px]" />
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        <div className="text-center mt-6 space-y-2">
-          <a href="/trial" className="block text-sm text-amber-600 font-medium hover:underline">
-            No account yet? Start your free 14-day trial
+        <div className="text-center mt-8">
+          <a href="/trial" className="text-[15px] text-amber-600 font-medium hover:text-amber-700 transition-colors">
+            Start your free 14-day trial
           </a>
-          <p className="text-xs text-gray-400">BrewPOS SaaS Platform</p>
         </div>
       </div>
     </div>
