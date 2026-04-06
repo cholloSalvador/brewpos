@@ -21,6 +21,7 @@ interface Stats {
   totalRevenue: number;
   activeSubscriptions: number;
   expiredSubscriptions: number;
+  trialStores: number;
   recentStores: StoreInfo[];
 }
 
@@ -97,14 +98,18 @@ export default function AdminDashboard() {
             <CreditCard className="w-5 h-5 text-blue-600" />
             <h2 className="font-bold">Subscriptions</h2>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-3">
             <div className="bg-green-50 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-green-600">{stats.activeSubscriptions}</p>
               <p className="text-sm text-gray-500">Active</p>
             </div>
+            <div className="bg-amber-50 rounded-lg p-4 text-center">
+              <p className="text-2xl font-bold text-amber-600">{stats.trialStores}</p>
+              <p className="text-sm text-gray-500">On Trial</p>
+            </div>
             <div className="bg-red-50 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-red-600">{stats.expiredSubscriptions}</p>
-              <p className="text-sm text-gray-500">Expired/Suspended</p>
+              <p className="text-sm text-gray-500">Expired</p>
             </div>
           </div>
         </div>

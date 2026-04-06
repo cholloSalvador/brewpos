@@ -94,7 +94,12 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-xs text-gray-400 mt-6">BrewPOS SaaS Platform</p>
+        <div className="text-center mt-6 space-y-2">
+          <a href="/trial" className="block text-sm text-amber-600 font-medium hover:underline">
+            No account yet? Start your free 14-day trial
+          </a>
+          <p className="text-xs text-gray-400">BrewPOS SaaS Platform</p>
+        </div>
       </div>
     </div>
   );

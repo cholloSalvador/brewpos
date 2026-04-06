@@ -9,13 +9,14 @@ export async function GET() {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const [totalStores, activeStores, totalUsers, totalOrders, activeSubscriptions, expiredSubscriptions] = await Promise.all([
+  const [totalStores, activeStores, totalUsers, totalOrders, activeSubscriptions, expiredSubscriptions, trialStores] = await Promise.all([
     prisma.store.count(),
     prisma.store.count({ where: { active: true } }),
     prisma.user.count({ where: { role: { not: "superadmin" } } }),
     prisma.order.count(),
     prisma.subscription.count({ where: { status: "active" } }),
     prisma.subscription.count({ where: { status: { not: "active" } } }),
+    prisma.subscription.count({ where: { plan: "trial" } }),
   ]);
 
   // Revenue across all stores
@@ -39,6 +40,7 @@ export async function GET() {
     totalRevenue: revenue._sum.total || 0,
     activeSubscriptions,
     expiredSubscriptions,
+    trialStores,
     recentStores,
   });
 }

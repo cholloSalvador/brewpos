@@ -9,7 +9,9 @@ export async function middleware(req: NextRequest) {
   // Allow public paths - be explicit
   if (
     pathname === "/login" ||
+    pathname === "/trial" ||
     pathname.startsWith("/api/auth") ||
+    pathname.startsWith("/api/trial") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon") ||
     pathname.startsWith("/uploads") ||

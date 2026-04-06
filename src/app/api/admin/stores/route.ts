@@ -33,13 +33,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Owner email already exists" }, { status: 400 });
   }
 
-  // Pricing: 1mo=200, 3mo=500, 6mo=900, 12mo=1500
-  const pricing: Record<number, number> = { 1: 200, 3: 500, 6: 900, 12: 1500 };
+  // Pricing: 0=trial(14 days free), 1mo=200, 3mo=500, 6mo=900, 12mo=1500
+  const pricing: Record<number, number> = { 0: 0, 1: 200, 3: 500, 6: 900, 12: 1500 };
   const duration = months || 1;
-  const amount = pricing[duration] || duration * 200;
+  const amount = pricing[duration] ?? duration * 200;
+  const isTrial = duration === 0;
 
   const endDate = new Date();
-  endDate.setMonth(endDate.getMonth() + duration);
+  if (isTrial) {
+    endDate.setDate(endDate.getDate() + 14);
+  } else {
+    endDate.setMonth(endDate.getMonth() + duration);
+  }
 
   const store = await prisma.store.create({
     data: {
@@ -49,10 +54,11 @@ export async function POST(req: NextRequest) {
       email: email || "",
       subscription: {
         create: {
-          plan: plan || "monthly",
+          plan: isTrial ? "trial" : (plan || "monthly"),
           status: "active",
           endDate,
           amount,
+          notes: isTrial ? "14-day free trial" : "",
         },
       },
       users: {

@@ -184,6 +184,7 @@ export default function StoresPage() {
                   <p className="text-sm font-bold text-gray-700">Subscription Plan</p>
                   <div className="grid grid-cols-2 gap-2">
                     {[
+                      { key: "0", label: "Free Trial", price: "₱0", perMonth: "14 days", badge: "Trial" },
                       { key: "1", label: "1 Month", price: "₱200", perMonth: "₱200/mo", badge: "" },
                       { key: "3", label: "3 Months", price: "₱500", perMonth: "₱167/mo", badge: "Save ₱100" },
                       { key: "6", label: "6 Months", price: "₱900", perMonth: "₱150/mo", badge: "Save ₱300" },
